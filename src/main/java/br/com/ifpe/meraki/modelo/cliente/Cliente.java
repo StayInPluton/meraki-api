@@ -1,7 +1,5 @@
 package br.com.ifpe.meraki.modelo.cliente;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -24,12 +22,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente extends EntidadeAuditavel {
-    @Column
+
     private String nome;
-    
+
     @Column
     private String email;
-    
+
     @Column
     private String senha;
 
