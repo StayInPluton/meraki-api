@@ -1,7 +1,8 @@
-package br.com.ifpe.meraki.modelo.cliente;
+package br.com.ifpe.meraki.modelo.produto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
@@ -14,28 +15,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Cliente")
+@Table(name = "Produto")
 @Where(clause = "habilitado = true")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente extends EntidadeAuditavel {
-    @Column
-    private String nome;
+public class Produto extends EntidadeAuditavel {
 
     @Column
-    private String email;
+    private String codigo;
 
     @Column
-    private String senha;
+    private String titulo;
 
     @Column
-    private String regiao;
+    private String descricao;
 
     @Column
-    private String telefone;
-
+    private Double valor;
 
 }

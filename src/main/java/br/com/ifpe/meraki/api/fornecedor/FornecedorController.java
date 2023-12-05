@@ -18,6 +18,7 @@ import br.com.ifpe.meraki.modelo.fornecedor.FornecedorService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/fornecedor")
@@ -41,6 +42,13 @@ public class FornecedorController {
     @GetMapping("/{id}")
     public Fornecedor findById(@PathVariable Long id) {
         return fornecedorService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Fornecedor> update(@PathVariable("id") Long id, @RequestBody FornecedorRequest request) {
+        // TODO: process PUT request
+        fornecedorService.update(id, request.build());
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

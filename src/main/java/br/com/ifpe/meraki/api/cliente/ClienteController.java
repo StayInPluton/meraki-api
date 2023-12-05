@@ -49,12 +49,12 @@ public class ClienteController {
     }
 
   
-   /*  @PutMapping("/{id}")
+ @PutMapping("/{id}")
     public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request) {
 
         clienteService.update(id, request.build());
         return ResponseEntity.ok().build();
-    }*/
+    }
 
    
     @DeleteMapping("/{id}")

@@ -6,36 +6,50 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class FornecedorService {
     @Autowired
     private FornecedorRepository repository;
 
     @Transactional
-    public Fornecedor save(Fornecedor fornecedor){
+    public Fornecedor save(Fornecedor fornecedor) {
 
         fornecedor.setHabilitado(Boolean.TRUE);
         fornecedor.setVersao(1L);
         return repository.save(fornecedor);
     }
 
-    public List<Fornecedor> findAll(){
+    public List<Fornecedor> findAll() {
 
         return repository.findAll();
     }
 
-    public Fornecedor findById(long id){
+    public Fornecedor findById(long id) {
 
         return repository.findById(id).get();
     }
 
     @Transactional
- public void delete(Long id) {
- Fornecedor fornecedor = repository.findById(id).get();
- fornecedor.setHabilitado(Boolean.FALSE);
- fornecedor.setVersao(fornecedor.getVersao() + 1);
- repository.save(fornecedor);
- }
+    public void update(Long id, Fornecedor fornecedorAlterado) {
+
+        Fornecedor fornecedor = repository.findById(id).get();
+        fornecedor.setNome(fornecedorAlterado.getNome());
+        fornecedor.setEmail(fornecedorAlterado.getEmail());
+        fornecedor.setSenha(fornecedorAlterado.getSenha());
+        fornecedor.setRegiao(fornecedorAlterado.getRegiao());
+        fornecedor.setTelefone(fornecedorAlterado.getTelefone());
+
+        fornecedor.setVersao(fornecedor.getVersao() + 1);
+        repository.save(fornecedor);
+
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Fornecedor fornecedor = repository.findById(id).get();
+        fornecedor.setHabilitado(Boolean.FALSE);
+        fornecedor.setVersao(fornecedor.getVersao() + 1);
+        repository.save(fornecedor);
+    }
 
 }

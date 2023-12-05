@@ -32,19 +32,19 @@ public class ClienteService {
         return repository.findById(id).get();
     }
 
-   // @Transactional
-    /*public void update(Long id, Cliente clienteAlterado) {
+   @Transactional
+    public void update(Long id, Cliente clienteAlterado) {
 
         Cliente cliente = repository.findById(id).get();
         cliente.setNome(clienteAlterado.getNome());
-        cliente.setDataNascimento(clienteAlterado.getDataNascimento());
-        cliente.setCpf(clienteAlterado.getCpf());
-        cliente.setFoneCelular(clienteAlterado.getFoneCelular());
-        cliente.setFoneFixo(clienteAlterado.getFoneFixo());
-
+        cliente.setEmail(clienteAlterado.getEmail());
+        cliente.setSenha(clienteAlterado.getSenha());
+        cliente.setRegiao(clienteAlterado.getRegiao());
+        cliente.setRegiao(clienteAlterado.getRegiao());
+      
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);
-    }*/
+    }
     @Transactional
    public void delete(Long id) {
 
