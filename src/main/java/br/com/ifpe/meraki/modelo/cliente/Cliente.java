@@ -2,10 +2,14 @@ package br.com.ifpe.meraki.modelo.cliente;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
+import org.hibernate.annotations.FetchMode;
 
+import br.com.ifpe.meraki.modelo.acesso.Usuario;
 import br.com.ifpe.meraki.util.entity.EntidadeAuditavel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +26,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente extends EntidadeAuditavel {
+
+     @ManyToOne
+   @JoinColumn(nullable = false)
+   private Usuario usuario;
+
     @Column
     private String nome;
 

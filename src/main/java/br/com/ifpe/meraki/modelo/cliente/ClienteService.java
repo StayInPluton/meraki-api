@@ -6,16 +6,21 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import br.com.ifpe.meraki.modelo.acesso.UsuarioService;
+
 import java.util.List;
 
 @Service
 public class ClienteService {
     @Autowired
     private ClienteRepository repository;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Transactional
     public Cliente save(Cliente cliente) {
-
+        usuarioService.save(cliente.getUsuario());
         cliente.setHabilitado(Boolean.TRUE);
         cliente.setVersao(1L);
         cliente.setDataCriacao(LocalDate.now());
@@ -32,7 +37,7 @@ public class ClienteService {
         return repository.findById(id).get();
     }
 
-   @Transactional
+    @Transactional
     public void update(Long id, Cliente clienteAlterado) {
 
         Cliente cliente = repository.findById(id).get();
@@ -41,19 +46,19 @@ public class ClienteService {
         cliente.setSenha(clienteAlterado.getSenha());
         cliente.setRegiao(clienteAlterado.getRegiao());
         cliente.setRegiao(clienteAlterado.getRegiao());
-      
+
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);
     }
+
     @Transactional
-   public void delete(Long id) {
+    public void delete(Long id) {
 
-       Cliente cliente = repository.findById(id).get();
-       cliente.setHabilitado(Boolean.FALSE);
-       cliente.setVersao(cliente.getVersao() + 1);
+        Cliente cliente = repository.findById(id).get();
+        cliente.setHabilitado(Boolean.FALSE);
+        cliente.setVersao(cliente.getVersao() + 1);
 
-       repository.save(cliente);
-   }
-
+        repository.save(cliente);
+    }
 
 }
