@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class FornecedorRequest {
+    private Long idCategoria;
+
     private String nome;
 
     private String email;

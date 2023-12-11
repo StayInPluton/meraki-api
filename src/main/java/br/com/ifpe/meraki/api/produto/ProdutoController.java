@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.meraki.modelo.produto.ProdutoService;
 import br.com.ifpe.meraki.api.produto.ProdutoRequest;
+import br.com.ifpe.meraki.modelo.produto.CategoriaProdutoService;
 import br.com.ifpe.meraki.modelo.produto.Produto;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +27,17 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoService produtoService;
+    @Autowired
+    private CategoriaProdutoService categoriaProdutoService;
 
     @PostMapping
     public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
         // TODO: process POST request
-        Produto produto = produtoService.save(request.build());
+        Produto produtoNovo = request.build();
+        produtoNovo.setCategoria(categoriaProdutoService.findById(request.getIdCategoria()));
+        Produto produto = produtoService.save(produtoNovo);
         return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
+
     }
 
     @GetMapping
@@ -47,7 +53,10 @@ public class ProdutoController {
     @PutMapping("/{id}")
     public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
         // TODO: process PUT request
-        produtoService.update(id, request.build());
+        Produto produto = request.build();
+        produto.setCategoria(categoriaProdutoService.findById(request.getIdCategoria()));
+        produtoService.update(id, produto);
+
         return ResponseEntity.ok().build();
     }
 

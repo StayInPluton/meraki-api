@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +34,7 @@ public class ClienteService {
         return repository.findById(id).get();
     }
 
-   @Transactional
+    @Transactional
     public void update(Long id, Cliente clienteAlterado) {
 
         Cliente cliente = repository.findById(id).get();
@@ -41,19 +43,22 @@ public class ClienteService {
         cliente.setSenha(clienteAlterado.getSenha());
         cliente.setRegiao(clienteAlterado.getRegiao());
         cliente.setRegiao(clienteAlterado.getRegiao());
-      
+
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);
     }
+
     @Transactional
-   public void delete(Long id) {
+    public void delete(Long id) {
 
-       Cliente cliente = repository.findById(id).get();
-       cliente.setHabilitado(Boolean.FALSE);
-       cliente.setVersao(cliente.getVersao() + 1);
+        Cliente cliente = repository.findById(id).get();
+        cliente.setHabilitado(Boolean.FALSE);
+        cliente.setVersao(cliente.getVersao() + 1);
 
-       repository.save(cliente);
-   }
+        repository.save(cliente);
+    }
 
+
+   
 
 }
