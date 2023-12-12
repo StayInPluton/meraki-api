@@ -40,9 +40,6 @@ public class Cliente extends EntidadeAuditavel {
     private String senha;
 
     @Column
-    private String regiao;
-
-    @Column
     private String telefone;
 
 

@@ -36,7 +36,6 @@ public class FornecedorService {
         fornecedor.setNome(fornecedorAlterado.getNome());
         fornecedor.setEmail(fornecedorAlterado.getEmail());
         fornecedor.setSenha(fornecedorAlterado.getSenha());
-        fornecedor.setRegiao(fornecedorAlterado.getRegiao());
         fornecedor.setTelefone(fornecedorAlterado.getTelefone());
 
         fornecedor.setVersao(fornecedor.getVersao() + 1);

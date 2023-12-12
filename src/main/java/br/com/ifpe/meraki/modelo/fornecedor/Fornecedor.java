@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Entity
 @Table(name = "Fornecedor")
 @Where(clause = "habilitado = true")
@@ -23,15 +24,12 @@ import lombok.Setter;
 public class Fornecedor extends EntidadeAuditavel {
     @Column
     private String nome;
-    
-    @Column
-    private String email;
-    
-    @Column
-    private String senha;
 
     @Column
-    private String regiao;
+    private String email;
+
+    @Column
+    private String senha;
 
     @Column
     private String telefone;

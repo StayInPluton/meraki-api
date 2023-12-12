@@ -31,7 +31,6 @@ public class ClienteRequest {
                 .nome(nome)
                 .email(email)
                 .senha(senha)
-                .regiao(regiao)
                 .build();
     }
 

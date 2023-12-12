@@ -36,10 +36,8 @@ public class FornecedorRequest {
                 .nome(nome)
                 .email(email)
                 .senha(senha)
-                .regiao(regiao)
                 .telefone(telefone)
                 .build();
     }
-
 
 }

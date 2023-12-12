@@ -1,32 +1,41 @@
 package br.com.ifpe.meraki.api.cliente;
 
+import br.com.ifpe.meraki.modelo.cliente.EnderecoCliente;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EnderecoClienteRequest {
 
-    private String rua;
+   private String rua;
 
-    private String numero;
+   private String numero;
 
-    private String bairro;
+   private String bairro;
 
-    private String cep;
+   private String cep;
 
-    private String cidade;
+   private String cidade;
 
-    private String estado;
+   private String estado;
 
-    private String complemento;
+   private String complemento;
 
-    public EnderecoCliente build() {
+   public EnderecoCliente build() {
 
-        return EnderecoCliente.builder()
-                .rua(rua)
-                .numero(numero)
-                .bairro(bairro)
-                .cep(cep)
-                .cidade(cidade)
-                .estado(estado)
-                .complemento(complemento)
-                .build();
-    }
-
+       return EnderecoCliente.builder()
+               .rua(rua)
+               .numero(numero)
+               .bairro(bairro)
+               .cep(cep)
+               .cidade(cidade)
+               .estado(estado)
+               .complemento(complemento)
+               .build();
+   }
 }
