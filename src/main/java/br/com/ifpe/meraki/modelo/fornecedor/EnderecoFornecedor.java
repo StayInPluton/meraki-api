@@ -30,25 +30,25 @@ public class EnderecoFornecedor extends EntidadeAuditavel {
     @ManyToOne
     private Fornecedor fornecedor;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String rua;
 
-    @Column
+    @Column(nullable = false, length = 50)
     private String numero;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String bairro;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String cep;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String cidade;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String estado;
 
-    @Column
+    @Column(nullable = true, length = 100)
     private String complemento;
 
 }

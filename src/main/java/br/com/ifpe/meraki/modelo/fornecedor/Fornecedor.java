@@ -30,16 +30,16 @@ public class Fornecedor extends EntidadeAuditavel {
     @OneToMany(mappedBy = "fornecedor", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EnderecoFornecedor> enderecos;
 
-    @Column
+    @Column (nullable = false, length = 100)
     private String nome;
 
-    @Column
+    @Column (nullable = false, length = 100)
     private String email;
 
-    @Column
+    @Column (nullable = false, length = 100)
     private String senha;
 
-    @Column
+    @Column (nullable = false, length = 100)
     private String telefone;
 
 }
