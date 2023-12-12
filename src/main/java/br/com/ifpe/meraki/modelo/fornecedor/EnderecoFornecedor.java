@@ -1,13 +1,13 @@
 package br.com.ifpe.meraki.modelo.fornecedor;
 
-import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Where;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.ifpe.meraki.util.entity.EntidadeAuditavel;
 import lombok.AllArgsConstructor;
@@ -17,29 +17,38 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Fornecedor")
+@Table(name = "EnderecoFornecedor")
 @Where(clause = "habilitado = true")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+public class EnderecoFornecedor extends EntidadeAuditavel {
 
-public class Fornecedor extends EntidadeAuditavel {
-
-    @OneToMany(mappedBy = "fornecedor", orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<EnderecoFornecedor> enderecos;
-
-    @Column
-    private String nome;
+    @JsonIgnore
+    @ManyToOne
+    private Fornecedor fornecedor;
 
     @Column
-    private String email;
+    private String rua;
 
     @Column
-    private String senha;
+    private String numero;
 
     @Column
-    private String telefone;
+    private String bairro;
+
+    @Column
+    private String cep;
+
+    @Column
+    private String cidade;
+
+    @Column
+    private String estado;
+
+    @Column
+    private String complemento;
 
 }
