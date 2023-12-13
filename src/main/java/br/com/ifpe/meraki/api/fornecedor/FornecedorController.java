@@ -82,6 +82,15 @@ public class FornecedorController {
 
         fornecedorService.removerEnderecoFornecedor(enderecoId);
         return ResponseEntity.noContent().build();
-    } 
+    }
+
+    // PARTE DE FILTRAGEM
+
+    @PostMapping("/filtrar")
+    public List<Fornecedor> filtrar(@RequestParam(value = "nome", required = false) String nome) {
+        // TODO: process POST request
+
+        return fornecedorService.filtrar(nome);
+    }
 
 }

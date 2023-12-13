@@ -99,4 +99,13 @@ public class FornecedorService {
         fornecedor.getEnderecos().remove(endereco);
         this.save(fornecedor);
     }
+
+    // Listagem de produto
+    public List<Fornecedor> filtrar(String nome) {
+        List<Fornecedor> listarFornecedor = repository.findAll();
+        listarFornecedor = repository.consultarPorNome(nome);
+
+        return listarFornecedor;
+
+    }
 }
