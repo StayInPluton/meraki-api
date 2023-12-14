@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.meraki.modelo.mensagens.EmailService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +20,19 @@ public class ClienteService {
     @Autowired
     private EnderecoClienteRepository enderecoClienteRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @Transactional
     public Cliente save(Cliente cliente) {
 
         cliente.setHabilitado(Boolean.TRUE);
         cliente.setVersao(1L);
         cliente.setDataCriacao(LocalDate.now());
-        return repository.save(cliente);
+        Cliente clienteSalvo = repository.save(cliente);
+        emailService.enviarEmailConfirmacaoCadastroCliente(clienteSalvo);
+
+        return clienteSalvo;
     }
 
     public List<Cliente> findAll() {
@@ -60,57 +68,56 @@ public class ClienteService {
     }
 
     @Transactional
-   public EnderecoCliente adicionarEnderecoCliente(Long clienteId, EnderecoCliente endereco) {
+    public EnderecoCliente adicionarEnderecoCliente(Long clienteId, EnderecoCliente endereco) {
 
-       Cliente cliente = this.findById(clienteId);
-      
-       //Primeiro salva o EnderecoCliente:
+        Cliente cliente = this.findById(clienteId);
 
-       endereco.setCliente(cliente);
-       endereco.setHabilitado(Boolean.TRUE);
-       enderecoClienteRepository.save(endereco);
-      
-       //Depois acrescenta o endereço criado ao cliente e atualiza o cliente:
+        // Primeiro salva o EnderecoCliente:
 
-       List<EnderecoCliente> listaEnderecoCliente = cliente.getEnderecos();
-      
-       if (listaEnderecoCliente == null) {
-           listaEnderecoCliente = new ArrayList<EnderecoCliente>();
-       }
-      
-       listaEnderecoCliente.add(endereco);
-       cliente.setEnderecos(listaEnderecoCliente);
-       this.save(cliente);
-      
-       return endereco;
-   }
+        endereco.setCliente(cliente);
+        endereco.setHabilitado(Boolean.TRUE);
+        enderecoClienteRepository.save(endereco);
 
-   @Transactional
-   public EnderecoCliente atualizarEnderecoCliente(Long id, EnderecoCliente enderecoAlterado) {
+        // Depois acrescenta o endereço criado ao cliente e atualiza o cliente:
 
-       EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
-       endereco.setRua(enderecoAlterado.getRua());
-       endereco.setNumero(enderecoAlterado.getNumero());
-       endereco.setBairro(enderecoAlterado.getBairro());
-       endereco.setCep(enderecoAlterado.getCep());
-       endereco.setCidade(enderecoAlterado.getCidade());
-       endereco.setEstado(enderecoAlterado.getEstado());
-       endereco.setComplemento(enderecoAlterado.getComplemento());
+        List<EnderecoCliente> listaEnderecoCliente = cliente.getEnderecos();
 
-       return enderecoClienteRepository.save(endereco);
-   }
+        if (listaEnderecoCliente == null) {
+            listaEnderecoCliente = new ArrayList<EnderecoCliente>();
+        }
 
-   @Transactional
-   public void removerEnderecoCliente(Long id) {
+        listaEnderecoCliente.add(endereco);
+        cliente.setEnderecos(listaEnderecoCliente);
+        this.save(cliente);
 
-       EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
-       endereco.setHabilitado(Boolean.FALSE);
-       enderecoClienteRepository.save(endereco);
+        return endereco;
+    }
 
-       Cliente cliente = this.findById(endereco.getCliente().getId());
-       cliente.getEnderecos().remove(endereco);
-       this.save(cliente);
-   }
+    @Transactional
+    public EnderecoCliente atualizarEnderecoCliente(Long id, EnderecoCliente enderecoAlterado) {
 
+        EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
+        endereco.setRua(enderecoAlterado.getRua());
+        endereco.setNumero(enderecoAlterado.getNumero());
+        endereco.setBairro(enderecoAlterado.getBairro());
+        endereco.setCep(enderecoAlterado.getCep());
+        endereco.setCidade(enderecoAlterado.getCidade());
+        endereco.setEstado(enderecoAlterado.getEstado());
+        endereco.setComplemento(enderecoAlterado.getComplemento());
+
+        return enderecoClienteRepository.save(endereco);
+    }
+
+    @Transactional
+    public void removerEnderecoCliente(Long id) {
+
+        EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
+        endereco.setHabilitado(Boolean.FALSE);
+        enderecoClienteRepository.save(endereco);
+
+        Cliente cliente = this.findById(endereco.getCliente().getId());
+        cliente.getEnderecos().remove(endereco);
+        this.save(cliente);
+    }
 
 }

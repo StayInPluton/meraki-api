@@ -19,7 +19,7 @@ import br.com.ifpe.meraki.modelo.produto.CategoriaProdutoService;
 import br.com.ifpe.meraki.modelo.produto.CategoriaProduto;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categoria-produto")
 @CrossOrigin
 public class CategoriaProdutoController {
 

@@ -2,6 +2,7 @@ package br.com.ifpe.meraki.api.cliente;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +28,7 @@ public class ClienteRequest {
 
     @NotNull(message = "O Email é de preenchimento obrigatório")
     @NotBlank(message = "O Email é de preenchimento obrigatório")
+    @Email
     private String email;
 
     @NotNull(message = "A senha é de preenchimento obrigatório")

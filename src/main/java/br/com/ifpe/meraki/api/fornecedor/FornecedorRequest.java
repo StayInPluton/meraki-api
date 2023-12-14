@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class FornecedorRequest {
 
     @NotNull(message = "O nome é de preenchimento obrigatório")
