@@ -52,6 +52,7 @@ public class ClienteService {
         cliente.setNome(clienteAlterado.getNome());
         cliente.setEmail(clienteAlterado.getEmail());
         cliente.setSenha(clienteAlterado.getSenha());
+        cliente.setTelefone(clienteAlterado.getTelefone());
 
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);

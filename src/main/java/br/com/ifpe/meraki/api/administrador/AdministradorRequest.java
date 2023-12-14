@@ -1,6 +1,4 @@
-package br.com.ifpe.meraki.api.cliente;
-
-import java.time.LocalDate;
+package br.com.ifpe.meraki.api.administrador;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -8,9 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import br.com.ifpe.meraki.modelo.cliente.Cliente;
+import br.com.ifpe.meraki.modelo.administrador.Administrador;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteRequest {
+public class AdministradorRequest {
     @NotNull(message = "O Nome é de preenchimento obrigatório")
     @NotBlank(message = "O Nome é de preenchimento obrigatório")
     @Length(max = 100, message = "O Nome deverá ter no máximo {max} caracteres")
@@ -35,18 +31,16 @@ public class ClienteRequest {
     @NotBlank(message = "A Senha é de preenchimento obrigatório")
     private String senha;
 
-    @NotNull(message = "O telefone é de preenchimento obrigatório")
-    @NotBlank(message = "O telefone é de preenchimento obrigatório")
-    @Length(min = 8, max = 20, message = "O campo Fone tem que ter entre {min} e {max} caracteres")
-    private String telefone;
+    @NotNull(message = "Necessario codigo de indentificação")
+    @NotBlank(message = "Necessario codigo de indentificação")
+    private String indentificacao;
 
-    public Cliente build() {
-
-        return Cliente.builder()
+    public Administrador build() {
+        return Administrador.builder()
                 .nome(nome)
                 .email(email)
                 .senha(senha)
-                .telefone(telefone)
+                .indentificacao(indentificacao)
                 .build();
     }
 
