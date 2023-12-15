@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Where;
 import java.util.List;
 
@@ -30,16 +33,19 @@ public class Fornecedor extends EntidadeAuditavel {
     @OneToMany(mappedBy = "fornecedor", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EnderecoFornecedor> enderecos;
 
-    @Column (nullable = false, length = 100)
+    @ManyToMany
+    private List<CategoriaFornecedor> categoria;
+
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column (nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String email;
 
-    @Column (nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String senha;
 
-    @Column (nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String telefone;
 
 }

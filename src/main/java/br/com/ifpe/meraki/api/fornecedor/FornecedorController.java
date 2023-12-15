@@ -86,10 +86,12 @@ public class FornecedorController {
     // PARTE DE FILTRAGEM
 
     @PostMapping("/filtrar")
-    public List<Fornecedor> filtrar(@RequestParam(value = "nome", required = false) String nome) {
+    public List<Fornecedor> filtrar(
+            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "categoria", required = false) String categoria) {
         // TODO: process POST request
 
-        return fornecedorService.filtrar(nome);
+        return fornecedorService.filtrar(nome, categoria);
     }
 
 }

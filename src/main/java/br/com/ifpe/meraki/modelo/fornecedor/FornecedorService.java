@@ -101,9 +101,14 @@ public class FornecedorService {
     }
 
     // Listagem de produto
-    public List<Fornecedor> filtrar(String nome) {
+    public List<Fornecedor> filtrar(String nome, String categoria) {
         List<Fornecedor> listarFornecedor = repository.findAll();
-        listarFornecedor = repository.consultarPorNome(nome);
+
+        if ((nome != null && !"".equals(nome)) && (categoria == null || "".equals(categoria))) {
+            listarFornecedor = repository.consultarPorNome(nome);
+        } else if ((categoria != null && !"".equals(categoria)) && (nome == null || "".equals(nome))) {
+            listarFornecedor = repository.consultarPorCategoria(categoria);
+        }
 
         return listarFornecedor;
 
