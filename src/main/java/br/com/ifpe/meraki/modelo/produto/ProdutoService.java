@@ -36,6 +36,7 @@ public class ProdutoService {
         produto.setTitulo(produtoAlterado.getTitulo());
         produto.setDescricao(produtoAlterado.getDescricao());
         produto.setValor(produtoAlterado.getValor());
+        produto.setImagem(produtoAlterado.getImagem());
 
         produto.setVersao(produto.getVersao() + 1);
         repository.save(produto);

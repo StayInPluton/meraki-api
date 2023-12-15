@@ -1,6 +1,9 @@
 package br.com.ifpe.meraki.api.produto;
 
 import java.util.List;
+
+import javax.mail.Multipart;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +11,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.ifpe.meraki.modelo.produto.ProdutoService;
+import br.com.ifpe.meraki.util.Util;
 import br.com.ifpe.meraki.api.produto.ProdutoRequest;
 import br.com.ifpe.meraki.modelo.produto.CategoriaProdutoService;
 import br.com.ifpe.meraki.modelo.produto.Produto;
@@ -66,6 +71,19 @@ public class ProdutoController {
         produtoService.delete(id);
         return ResponseEntity.ok().build();
 
+    }
+
+    @PutMapping("/cadastrarImagem/{id}")
+    public ResponseEntity<Produto> cadastrarImagem(@PathVariable("id") Long id,
+            @RequestParam(value = "imagem", required = false) MultipartFile imagem) {
+        // TODO: process POST request
+        Produto produto = produtoService.findById(id);
+
+        if (Util.fazerUploadImagem(imagem)) {
+            produto.setImagem(Util.obterMomentoAtual() + "-" + imagem.getOriginalFilename());
+        }
+        produtoService.update(id, produto);
+        return ResponseEntity.ok().build();
     }
 
 }

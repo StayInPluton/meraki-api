@@ -39,4 +39,7 @@ public class Produto extends EntidadeAuditavel {
     @Column(nullable = false, length = 100)
     private Double valor;
 
+    @Column(nullable = false)
+    private String imagem;
+
 }
