@@ -1,11 +1,14 @@
 package br.com.ifpe.meraki.api.administrador;
 
+import java.util.Arrays;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.ifpe.meraki.modelo.acesso.Usuario;
 import br.com.ifpe.meraki.modelo.administrador.Administrador;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,10 +40,20 @@ public class AdministradorRequest {
 
     public Administrador build() {
         return Administrador.builder()
+                .usuario(buildUsuario())
                 .nome(nome)
                 .email(email)
                 .senha(senha)
                 .indentificacao(indentificacao)
+                .build();
+    }
+
+    public Usuario buildUsuario() {
+
+        return Usuario.builder()
+                .username(email)
+                .password(senha)
+                .roles(Arrays.asList(Usuario.ROLE_ADMIN))
                 .build();
     }
 

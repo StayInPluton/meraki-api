@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -12,6 +14,7 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Where;
 import java.util.List;
 
+import br.com.ifpe.meraki.modelo.acesso.Usuario;
 import br.com.ifpe.meraki.util.entity.EntidadeAuditavel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +32,9 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Fornecedor extends EntidadeAuditavel {
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Usuario usuario;
 
     @OneToMany(mappedBy = "fornecedor", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EnderecoFornecedor> enderecos;

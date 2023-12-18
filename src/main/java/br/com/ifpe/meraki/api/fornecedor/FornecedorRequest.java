@@ -1,5 +1,7 @@
 package br.com.ifpe.meraki.api.fornecedor;
 
+import java.util.Arrays;
+
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -8,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.ifpe.meraki.modelo.acesso.Usuario;
 import br.com.ifpe.meraki.modelo.fornecedor.Fornecedor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,10 +42,20 @@ public class FornecedorRequest {
     public Fornecedor build() {
 
         return Fornecedor.builder()
+                .usuario(buildUsuario())
                 .nome(nome)
                 .email(email)
                 .senha(senha)
                 .telefone(telefone)
+                .build();
+    }
+
+    public Usuario buildUsuario() {
+
+        return Usuario.builder()
+                .username(email)
+                .password(senha)
+                .roles(Arrays.asList(Usuario.ROLE_FORNECEDOR))
                 .build();
     }
 
