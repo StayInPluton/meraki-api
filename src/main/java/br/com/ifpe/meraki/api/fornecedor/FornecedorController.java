@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ifpe.meraki.modelo.fornecedor.EnderecoFornecedor;
 import br.com.ifpe.meraki.modelo.fornecedor.Fornecedor;
 import br.com.ifpe.meraki.modelo.fornecedor.FornecedorService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,6 +57,41 @@ public class FornecedorController {
 
         fornecedorService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    // PARTE DO ENDEREÇO
+    @PostMapping("/endereco/{fornecedorId}")
+    public ResponseEntity<EnderecoFornecedor> adicionarEnderecoFornecedor(
+            @PathVariable("forncedorId") Long fornecedorId, @RequestBody @Valid EnderecoFornecedorRequest request) {
+        // TODO: process POST request
+        EnderecoFornecedor endereco = fornecedorService.adicionarEnderecoFornecedor(fornecedorId, request.build());
+        return new ResponseEntity<EnderecoFornecedor>(endereco, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/endereco/{enderecoId}")
+    public ResponseEntity<EnderecoFornecedor> atualizarEnderecoFornecedor(@PathVariable("enderecoId") Long enderecoId,
+            @RequestBody EnderecoFornecedorRequest request) {
+
+        EnderecoFornecedor endereco = fornecedorService.atualizarEnderecoFornecedor(enderecoId, request.build());
+        return new ResponseEntity<EnderecoFornecedor>(endereco, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/endereco/{enderecoId}")
+    public ResponseEntity<Void> removerEnderecoFornecedor(@PathVariable("enderecoId") Long enderecoId) {
+
+        fornecedorService.removerEnderecoFornecedor(enderecoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    // PARTE DE FILTRAGEM
+
+    @PostMapping("/filtrar")
+    public List<Fornecedor> filtrar(
+            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "categoria", required = false) String categoria) {
+        // TODO: process POST request
+
+        return fornecedorService.filtrar(nome, categoria);
     }
 
 }

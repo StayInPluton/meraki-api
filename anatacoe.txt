@@ -1,0 +1,6 @@
+ @PutMapping("/endereco/{enderecoId}")
+   public ResponseEntity<EnderecoFornecedor> atualizarEnderecoFornecedor(@PathVariable("enderecoId") Long enderecoId, @RequestBody EnderecoClienteRequest request) {
+
+       EnderecoFornecedor endereco = fornecedorService.atualizarEnderecoFornecedor(enderecoId, request.build());
+       return new ResponseEntity<EnderecoFornecedor(endereco, HttpStatus.OK);
+   }

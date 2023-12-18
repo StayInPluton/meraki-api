@@ -2,6 +2,7 @@ package br.com.ifpe.meraki.modelo.fornecedor;
 
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 public class FornecedorService {
     @Autowired
     private FornecedorRepository repository;
+
+    @Autowired
+    private EnderecoFornecedorRepository enderecoFornecedorRepository;
 
     @Transactional
     public Fornecedor save(Fornecedor fornecedor) {
@@ -36,7 +40,6 @@ public class FornecedorService {
         fornecedor.setNome(fornecedorAlterado.getNome());
         fornecedor.setEmail(fornecedorAlterado.getEmail());
         fornecedor.setSenha(fornecedorAlterado.getSenha());
-        fornecedor.setRegiao(fornecedorAlterado.getRegiao());
         fornecedor.setTelefone(fornecedorAlterado.getTelefone());
 
         fornecedor.setVersao(fornecedor.getVersao() + 1);
@@ -52,4 +55,62 @@ public class FornecedorService {
         repository.save(fornecedor);
     }
 
+    @Transactional
+    public EnderecoFornecedor adicionarEnderecoFornecedor(Long fornecedorId, EnderecoFornecedor endereco) {
+        Fornecedor fornecedor = this.findById(fornecedorId);
+
+        endereco.setFornecedor(fornecedor);
+        endereco.setHabilitado(Boolean.TRUE);
+        enderecoFornecedorRepository.save(endereco);
+
+        List<EnderecoFornecedor> listaEnderecoFornecedor = fornecedor.getEnderecos();
+
+        if (listaEnderecoFornecedor == null) {
+            listaEnderecoFornecedor = new ArrayList<EnderecoFornecedor>();
+        }
+        listaEnderecoFornecedor.add(endereco);
+        fornecedor.setEnderecos(listaEnderecoFornecedor);
+        this.save(fornecedor);
+
+        return endereco;
+    }
+
+    @Transactional
+    public EnderecoFornecedor atualizarEnderecoFornecedor(Long id, EnderecoFornecedor enderecoAlterado) {
+        EnderecoFornecedor endereco = enderecoFornecedorRepository.findById(id).get();
+        endereco.setRua(enderecoAlterado.getRua());
+        endereco.setNumero(enderecoAlterado.getNumero());
+        endereco.setBairro(enderecoAlterado.getBairro());
+        endereco.setCep(enderecoAlterado.getCep());
+        endereco.setCidade(enderecoAlterado.getCidade());
+        endereco.setEstado(enderecoAlterado.getEstado());
+        endereco.setComplemento(enderecoAlterado.getComplemento());
+
+        return enderecoFornecedorRepository.save(endereco);
+    }
+
+    @Transactional
+    public void removerEnderecoFornecedor(Long id) {
+        EnderecoFornecedor endereco = enderecoFornecedorRepository.findById(id).get();
+        endereco.setHabilitado(Boolean.FALSE);
+        enderecoFornecedorRepository.save(endereco);
+
+        Fornecedor fornecedor = this.findById(endereco.getFornecedor().getId());
+        fornecedor.getEnderecos().remove(endereco);
+        this.save(fornecedor);
+    }
+
+    // Listagem de produto
+    public List<Fornecedor> filtrar(String nome, String categoria) {
+        List<Fornecedor> listarFornecedor = repository.findAll();
+
+        if ((nome != null && !"".equals(nome)) && (categoria == null || "".equals(categoria))) {
+            listarFornecedor = repository.consultarPorNome(nome);
+        } else if ((categoria != null && !"".equals(categoria)) && (nome == null || "".equals(nome))) {
+            listarFornecedor = repository.consultarPorCategoria(categoria);
+        }
+
+        return listarFornecedor;
+
+    }
 }

@@ -1,4 +1,4 @@
-package br.com.ifpe.meraki.modelo.produto;
+package br.com.ifpe.meraki.modelo.fornecedor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.ifpe.meraki.util.entity.EntidadeAuditavel;
 import lombok.AllArgsConstructor;
@@ -15,31 +17,38 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Produto")
+@Table(name = "EnderecoFornecedor")
 @Where(clause = "habilitado = true")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto extends EntidadeAuditavel {
+public class EnderecoFornecedor extends EntidadeAuditavel {
 
+    @JsonIgnore
     @ManyToOne
-    private CategoriaProduto categoria;
+    private Fornecedor fornecedor;
 
     @Column(nullable = false, length = 100)
-    private String codigo;
+    private String rua;
+
+    @Column(nullable = false, length = 50)
+    private String numero;
 
     @Column(nullable = false, length = 100)
-    private String titulo;
-
-    @Column(nullable = false, length = 500)
-    private String descricao;
+    private String bairro;
 
     @Column(nullable = false, length = 100)
-    private Double valor;
+    private String cep;
 
-    @Column
-    private String imagem;
+    @Column(nullable = false, length = 100)
+    private String cidade;
+
+    @Column(nullable = false, length = 100)
+    private String estado;
+
+    @Column(nullable = true, length = 100)
+    private String complemento;
 
 }
