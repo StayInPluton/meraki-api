@@ -36,7 +36,7 @@ public class Fornecedor extends EntidadeAuditavel {
     @JoinColumn(nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "fornecedor", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "fornecedor", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EnderecoFornecedor> enderecos;
 
     @ManyToMany
