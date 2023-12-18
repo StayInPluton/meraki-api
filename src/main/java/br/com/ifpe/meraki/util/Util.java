@@ -34,10 +34,10 @@ public class Util {
 
             try {
                 // Criando o diretório para armazenar o arquivo
-                String workspaceProjeto = "C:\\Users\\Aluno\\Documents\\cavaloDeTroia\\git\\meraki-api"; // Alterar
-                                                                                                         // sempre que
-                                                                                                         // trocar de
-                                                                                                         // maquina
+                String workspaceProjeto = "C:\\Users\\Aluno\\Documents\\meraki\\meraki-api"; // Alterar
+                                                                                             // sempre que
+                                                                                             // trocar de
+                                                                                             // maquina
                 File dir = new File(workspaceProjeto + "/arquivos");
                 if (!dir.exists()) {
                     dir.mkdirs();
