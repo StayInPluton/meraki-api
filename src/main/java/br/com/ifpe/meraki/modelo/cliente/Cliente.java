@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
-import org.hibernate.annotations.FetchMode;
 
 import br.com.ifpe.meraki.modelo.acesso.Usuario;
 import br.com.ifpe.meraki.util.entity.EntidadeAuditavel;
@@ -37,7 +36,7 @@ public class Cliente extends EntidadeAuditavel {
 
     @Column
 
-    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EnderecoCliente> enderecos;
 
     @Column(nullable = false, length = 100)
